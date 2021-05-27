@@ -1,0 +1,9 @@
+image,image_size,number_of_iter,duration_ms,render_output_image,total_duration_ms,mean,var,std
+petal.png,,1,6524.745941162109,False,,,,
+petal.png,,1,,,6524.745941162109,6524.745941162109,0E-24,0E-12
+glasses-large.png,,1,46706.93016052246,False,,,,
+glasses-large.png,,1,,,46706.93016052246,46706.93016052246,0E-22,0E-11
+rose.png,,1,60865.41986465454,False,,,,
+rose.png,,1,,,60865.41986465454,60865.41986465454,0E-22,0E-11
+glasses-crop.png,,1,6609.421253204346,False,,,,
+glasses-crop.png,,1,,,6609.421253204346,6609.421253204346,0E-24,0E-12
