@@ -6,15 +6,15 @@ import csv
 
 useRealImage = True
 
-if len(sys.argv) != 5: exit(0)
+if len(sys.argv) != 6 : exit(0)
 
-IMAGE_NAME = sys.argv[1]
 ITER = int(sys.argv[2])
-RENDER_OUTPUT = sys.argv[3].lower() == 'true'
-EVAL_MODE = sys.argv[4].lower() == 'true'
+TRIAL_NUM  = int(sys.argv[3])
+RENDER_OUTPUT = sys.argv[4].lower() == 'true'
+EVAL_MODE = sys.argv[5].lower() == 'true'
     
-
-if useRealImage:
+if not EVAL_MODE:
+    IMAGE_NAME = sys.argv[1]
     resultFolder = 'results/'
     img = cv2.imread('input/' + IMAGE_NAME)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -27,8 +27,8 @@ if useRealImage:
     totalNumbers = rows * cols
     # print(noisySignal)
 else:
-    rows = 4
-    cols = 10
+    rows = int(sys.argv[1])
+    cols = int(sys.argv[1])
     totalNumbers = rows * cols
     noisySignal = np.zeros((rows, cols))
     noisySignal = noisySignal.astype(np.float32)
@@ -342,14 +342,14 @@ def printGraph():
             print(factorNodes[i].factorID, factorNodes[i].prevID, factorNodes[i].afterID)
 
 def logResult(dur):
-    FIELD_NAME = ['image' , 'image_size', 'number_of_iter','duration_ms', 'render_output_image',
-             'total_duration_ms','mean', 'var', 'std']
+    FIELD_NAME = ['trial_number','image_width', 'image_height', 'number_of_iter','duration_ms', 'render_output_image']
+    # FIELD_NAME = ['image' , 'image_size','trial_number', 'number_of_iter','duration_ms', 'render_output_image']
 
     with open('resultLog/resultLog.csv', mode='a') as csv_file: # 'a' = append
         writer = csv.DictWriter(csv_file, fieldnames=FIELD_NAME)
 
-        writer.writerow({'image': IMAGE_NAME, 'number_of_iter': ITER, 'duration_ms' : dur,
-                         'render_output_image': RENDER_OUTPUT})
+        writer.writerow({'trial_number': TRIAL_NUM, 'image_width': cols, 'image_height': rows,
+                        'number_of_iter': ITER, 'duration_ms' : dur, 'render_output_image': RENDER_OUTPUT})
 
 # ------- Starting to define the graph here --------
 for i in range(rows):
